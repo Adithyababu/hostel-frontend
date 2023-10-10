@@ -1,0 +1,88 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col mt-2">
+            <h2 class="text-primary" style="font-weight: 500;">ALL STUDENTS DETAILS
+                <a class="btn btn-success ms-4" routerLink="/add-student"><i class="fa-solid fa-user-plus"></i>Add
+                    New</a>
+            </h2>
+            <!---content-->
+            <p class="mt-3" style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Repellat, laboriosam? Libero omnis corporis, ipsum mollitia minus veniam vel harum ex, repellendus
+                laudantium rem voluptate qui! Quasi aliquid facilis ducimus corporis!
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore minima possimus, asperiores ad quia
+                ipsa dolore cupiditate repudiandae eum voluptates dolor non praesentium. Reiciendis sunt excepturi eos
+                fugiat facere molestiae.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, molestiae ex itaque maxime quos libero
+                aliquam iste veritatis numquam consectetur ipsum commodi voluptas omnis, exercitationem voluptatem
+                accusantium fugiat modi rerum!
+            </p>
+        </div>
+    </div>
+</div>
+<!--search-->
+<div class="container">
+    <!---search option-->
+    <div class="row mt-5">
+        <div class="col-lg-2 fw-bolder">
+            Search Student:
+        </div>
+        <div class="col-lg-6">
+            <!---input search box-->
+            <input [(ngModel)]="searchKey" placeholder="Type Student Name Here!!!" type="text" class="form-control me-auto">
+        </div>
+    </div>
+</div>
+<!--loading spinner-->
+<div *ngIf="isLoading && allStudents.length==0" class="text-center mt-5">
+    <!----spinner bootstrap code-->
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+</div>
+
+<!---error msg div-->
+<div *ngIf="errorMsg"class="alert alert-danger mt-5" role="alert">
+    {{errorMsg}}
+  </div>
+
+<!----contact card-->
+<div  class="container mt-5">
+    <div class="row" *ngIf="!isLoading && allStudents.length>0">
+        <div class="col-lg-6 mb-3" *ngFor="let student of allStudents | filter : searchKey : 'sname' ">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-sm-3 text-center ">
+                            <!--image-->
+                            <img width="120px" height="130px" [src]="student.photo">
+                        </div>
+                        <div class="col-sm-8 mt-2">
+                            <!--content-->
+                            <ul class="list-group">
+                                <li class="list-group-item">Student Name : <span
+                                        class="fw-bolder">{{student.sname}}</span> </li>
+                                <li class="list-group-item">Student Email : <span
+                                        class="fw-bolder">{{student.email}}</span> </li>
+                                <li class="list-group-item">Student Mobile: <span
+                                        class="fw-bolder">{{student.smobile}}</span> </li>
+
+                            </ul>
+                        </div>
+                        <div class="col-sm-1 d-flex flex-column mt-2 justify-content-center align-items-center">
+                            <!--actions-->
+                            <!----view-->
+                            <a class="btn btn-warning text-light mb-1" routerLink="/view-student/{{student.id}}"><i
+                                    class="fa-solid fa-eye"></i> </a>
+                            <!--edit-->
+                            <a class="btn btn-primary text-light mb-1" routerLink="/edit-student/{{student.id}}"><i
+                                    class="fa-solid fa-pen"></i> </a>
+                            <!--delete--->
+                            <button (click)="deleteStudent(student.id)" class="btn btn-success text-light" href=""><i class="fa-solid fa-trash">
+                                </i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

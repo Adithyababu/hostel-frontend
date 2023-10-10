@@ -1,0 +1,124 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col mt-2">
+            <h2 class="text-primary" style="font-weight: 500;"><i style="color: green;"
+                    class="fa-solid fa-user-plus"></i>ADD NEW STUDENT
+            </h2>
+            <!---content-->
+            <p class="mt-3" style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Repellat, laboriosam? Libero omnis corporis, ipsum mollitia minus veniam vel harum ex, repellendus
+                laudantium rem voluptate qui! Quasi aliquid facilis ducimus corporis!
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore minima possimus, asperiores ad quia
+                ipsa dolore cupiditate repudiandae eum voluptates dolor non praesentium. Reiciendis sunt excepturi eos
+                fugiat facere molestiae.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, molestiae ex itaque maxime quos libero
+                aliquam iste veritatis numquam consectetur ipsum commodi voluptas omnis, exercitationem voluptatem
+                accusantium fugiat modi rerum!
+            </p>
+        </div>
+    </div>
+</div>
+
+<!----form design-->
+<div class="container mt-5">
+    <div class="row border rounded p-5 ">
+        <div class="col-lg-8">
+            <form #addNewStudentForm="ngForm">
+                <div class="mb-2">
+                    <input name="id" #id="ngModel" [(ngModel)]="student.id" type="text" class="form-control" placeholder="student Id" required>
+                </div>
+                <!---id validation-->
+                <div class="mb-2 text-danger" *ngIf="id.invalid && id.touched">
+                    please enter a valid id
+                    </div>
+                <div class="mb-2">
+                    <input  #name="ngModel" name="sname"[(ngModel)]="student.sname" type="text" class="form-control" placeholder="student Name" required pattern="[a-zA-Z ]*">
+                </div>
+                <!---name validation-->
+                <div class="mb-2 text-danger" *ngIf="name.invalid && name.touched">
+                    please enter a valid Student name
+                    </div>
+                <div class="mb-2">
+                    <input name="saddress" #address="ngModel" [(ngModel)]="student.saddress"type="text" class="form-control" placeholder="student Address" required pattern="[a-zA-Z ]*">
+                </div>
+                <!---address validation-->
+                <div class="mb-2 text-danger" *ngIf="address.invalid && address.touched">
+                    please enter a valid Address
+                    </div>
+                <div class="mb-2">
+                    <input name="smobile" #smobile="ngModel" [(ngModel)]="student.smobile"type="text" class="form-control" placeholder="student contact No" minlength="10" maxlength="10" required pattern="[0-9]*">
+                </div>
+                <!---smobile validation-->
+                <div class="mb-2 text-danger" *ngIf="smobile.invalid && smobile.touched">
+                    please enter a valid mobile
+                    </div>
+                <div class="mb-2">
+                    <input name="email" #email="ngModel" [(ngModel)]="student.email" type="text" class="form-control" placeholder="student Email Id" email required>
+                </div>
+                <!---email validation-->
+                <div class="mb-2 text-danger" *ngIf="email.invalid && email.touched">
+                    please enter a valid email
+                    </div>
+                <div class="mb-2">
+                    <input name="pname" #pname="ngModel" [(ngModel)]="student.pname" type="text" class="form-control" placeholder="Parent Name"required pattern="[a-zA-Z ]*">
+                </div>
+                <!---pname validation-->
+                <div class="mb-2 text-danger" *ngIf="pname.invalid && pname.touched">
+                    please enter a valid parent name
+                    </div>
+                <div class="mb-2">
+                    <input name="pmobile"#pmobile="ngModel" [(ngModel)]="student.pmobile" type="text" class="form-control" placeholder="Parent Contact No" minlength="10" maxlength="10" required pattern="[0-9]*">
+                </div>
+                 <!---pmobile validation--->
+                 <div class="mb-2 text-danger" *ngIf="pmobile.invalid && pmobile.touched">
+                    please enter a valid mobile
+                    </div>
+                    <div class="mb-2">
+                        <input name="photo" #photo="ngModel" [(ngModel)]="student.photo" type="text" class="form-control" placeholder="student image URL" required>
+                    </div>
+                    <!---photo validation-->
+                    <div class="mb-2 text-danger" *ngIf="photo.invalid && photo.touched">
+                        please enter a valid image url
+                        </div>
+                <div class="mb-2">
+                    <select name="departmentId" #departmentId="ngModel" [(ngModel)]="student.departmentId" class="form-control" required pattern="[0-9]*">
+                        <option disabled selected hidden>{{student.departmentId}}</option>
+                        <option  *ngFor="let department of alldepartment" [value]="department.id">{{department.name}}</option>
+                        
+                    </select>
+                </div>
+                <!---department validation-->
+                <div class="mb-2 text-danger" *ngIf="departmentId.invalid && departmentId.touched">
+                    please select a Department
+                    </div>
+                
+                <div class="mt-5 row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                        <a routerLink="/all-students" class="btn btn-danger ">Close</a>
+                        <button (click)="addNewStudent(student)" [disabled]="addNewStudentForm.invalid" class="btn btn-primary ms-3"> ADD NEW </button>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+        <!----added student details view-->
+        <div class="col-lg-4 d-flex justify-content-center">
+            <div [hidden]="addNewStudentForm.invalid" class="card align-items-center p-2" style="width: 18rem;">
+                <img width="75px" height="150px" [src]="student.photo" class="card-img-top" alt="user image">
+                <div class="card-body">
+                    <h5 class="card-title">{{student.sname}}</h5>
+                    <p>Student Id  :{{student.id}}</p>
+                    <p>Student Address:{{student.saddress}}</p>
+                    <p>Student Contact:{{student.smobile}}</p>
+                    <p>Email:{{student.email}}</p>
+                    <p>Parent Name:{{student.pname}}</p>
+                    <p>Parent Contact:{{student.pmobile}}</p>
+                    <p>Department:{{student.departmentId}}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
